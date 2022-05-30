@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget {
                             height: 20,
                           ),
                           ConditionalBuilder(
-                            condition: state is ShopLoginLoadingStates,
+                            condition: state is! ShopLoginLoadingStates,
                             builder: (context) => defaultButton(
                               function: () {
                                 if (formKey.currentState!.validate()) {

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 class DioHelper {
   static Dio? dio;
@@ -27,6 +26,8 @@ class DioHelper {
     required Map<String, dynamic>? data,
   }) async {
     Response? userData;
+    print("requst URL Start here : " + url);
+    print(data);
     try {
       userData = await dio?.post(
         url,
@@ -54,4 +55,17 @@ class DioHelper {
     //   data: data,
     // );
   }
+
+  // Future<Response?> postData2(String url) async {
+  //   Response response;
+  //   try {
+
+  //     response = await dio!.post(url);
+
+  //     return response;
+  //   } on DioError catch (error, stacktrace) {
+  //     print("Exception occured: $error stackTrace: $stacktrace");
+  //     return error.response;
+  //   }
+  // }
 }
