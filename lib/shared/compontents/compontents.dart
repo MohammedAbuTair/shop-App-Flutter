@@ -30,8 +30,8 @@ Widget defaultButton({
 Widget defaultInput({
   required TextEditingController controller,
   required TextInputType type,
-  Function? onSubmit,
-  Function? onChange,
+  Function(String? val)? onSubmit,
+  Function(String? val)? onChange,
   Function? suffixIconPress,
   required String? Function(String? val)? validate,
   required String label,
@@ -43,8 +43,8 @@ Widget defaultInput({
     controller: controller,
     keyboardType: type,
     obscureText: isPassword,
-    onFieldSubmitted: (_) => onSubmit!(_),
-    onChanged: (_) => onChange,
+    onFieldSubmitted: onSubmit,
+    onChanged: onChange,
     validator: validate,
     decoration: InputDecoration(
         labelText: label,

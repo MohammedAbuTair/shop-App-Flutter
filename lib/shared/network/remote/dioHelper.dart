@@ -5,35 +5,45 @@ class DioHelper {
   static init() {
     dio = Dio(
       BaseOptions(
-          baseUrl: 'https://student.valuxapps.com/api/',
-          receiveDataWhenStatusError: true,
-          headers: {
-            "Content-Type": "application/json",
-          }),
+        baseUrl: 'https://student.valuxapps.com/api/',
+        receiveDataWhenStatusError: true,
+        headers: {"Content-Type": "application/json"},
+      ),
     );
   }
 
-  static Future<Response> getData({
+  static Future<Response?> getData({
     required String url,
     required Map<String, dynamic>? query,
+    String lang = "ar",
+    String? token,
   }) async {
-    return await dio!.get(url, queryParameters: query);
+    dio?.options.headers = {
+      'lang': lang,
+      'Authorization': token,
+    };
+    return await dio?.get(url, queryParameters: query);
   }
 
   static Future<Response?> postData({
     required String url,
     Map<String, dynamic>? query,
     required Map<String, dynamic>? data,
+    String lang = "ar",
+    String? token,
   }) async {
     Response? userData;
-    print("requst URL Start here : " + url);
-    print(data);
+    dio?.options.headers = {
+      'lang': lang,
+      'Authorization': token,
+    };
     try {
       userData = await dio?.post(
         url,
         queryParameters: query,
         data: data,
       );
+      return userData;
     } on DioError catch (e) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx and is also not 304.
@@ -48,7 +58,7 @@ class DioHelper {
         print(e.message);
       }
     }
-    return userData;
+
     // return await dio?.post(
     //   url,
     //   queryParameters: query,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:shop_app/modules/shop_app/on_boarding/on_bording_screen.dart';
+import 'package:shop_app/shared/network/remote/dioHelper.dart';
 import 'package:shop_app/shared/styles/themes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.init();
   runApp(const MyApp());
 }
 

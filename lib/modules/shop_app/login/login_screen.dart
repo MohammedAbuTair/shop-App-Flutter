@@ -61,8 +61,20 @@ class LoginScreen extends StatelessWidget {
                           defaultInput(
                               controller: passContoller,
                               type: TextInputType.visiblePassword,
-                              suffix: Icons.visibility_outlined,
-                              suffixIconPress: () {},
+                              suffix: ShopLoginCubit.get(context).suffix,
+                              suffixIconPress: () {
+                                ShopLoginCubit.get(context)
+                                    .changePasswordVisibility();
+                              },
+                              isPassword:
+                                  ShopLoginCubit.get(context).isPasswordShow,
+                              onSubmit: (value) {
+                                if (formKey.currentState!.validate()) {
+                                  ShopLoginCubit.get(context).userLogin(
+                                      email: emailContoller.text,
+                                      password: passContoller.text);
+                                }
+                              },
                               validate: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please insert Password';
