@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/modules/shop_app/login/login_screen.dart';
 import 'package:shop_app/shared/compontents/compontents.dart';
+import 'package:shop_app/shared/network/local/cacheHelpers.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -38,20 +39,23 @@ class _OnBoradingScreenState extends State<OnBoradingScreen> {
         body: 'Select what you want 3'),
   ];
   bool isLast = false;
+  void submit() {
+    CacheHelpers.saveData(key: "onBording", value: true).then((value) {
+      if (value) {
+        navagetAndFinish(
+          context,
+          LoginScreen(),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          defaultTextButton(
-              label: 'skip',
-              function: () {
-                navagetAndFinish(
-                  context,
-                  LoginScreen(),
-                );
-              }),
+          defaultTextButton(label: 'skip', function: submit),
         ],
       ),
       body: Padding(
@@ -97,10 +101,7 @@ class _OnBoradingScreenState extends State<OnBoradingScreen> {
               FloatingActionButton(
                 onPressed: () {
                   if (isLast) {
-                    navagetAndFinish(
-                      context,
-                      LoginScreen(),
-                    );
+                    submit();
                   } else {
                     borderControler.nextPage(
                         duration: Duration(milliseconds: 750),

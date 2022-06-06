@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -86,3 +87,32 @@ void navagetAndFinish(context, Widget) => Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute(builder: (context) => Widget),
     (Route<dynamic> route) => false);
+
+void showToast({
+  required String text,
+  required ToastStates state,
+}) =>
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: choseToastColor(state),
+        textColor: Colors.white,
+        fontSize: 16.0);
+enum ToastStates { SUCESS, ERROR, WARNING }
+Color choseToastColor(ToastStates state) {
+  Color color;
+  switch (state) {
+    case ToastStates.SUCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}

@@ -6,6 +6,8 @@ class DioHelper {
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://student.valuxapps.com/api/',
+        // baseUrl: 'http://dev70.hoja-crm.com/API/data.php?type=userLogin&email=hamzahshajrawi@gmail.com&password=admin123',
+        // baseUrl: 'http://dev70.hoja-crm.com/API/data.php',
         receiveDataWhenStatusError: true,
         headers: {"Content-Type": "application/json"},
       ),
@@ -43,6 +45,7 @@ class DioHelper {
         queryParameters: query,
         data: data,
       );
+      print(url);
       return userData;
     } on DioError catch (e) {
       // The request was made and the server responded with a status code

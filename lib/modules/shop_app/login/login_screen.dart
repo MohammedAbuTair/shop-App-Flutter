@@ -1,10 +1,12 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/layout/shop_app/shop_layout.dart';
 import 'package:shop_app/modules/shop_app/login/cubit/cubit.dart';
 import 'package:shop_app/modules/shop_app/login/cubit/states.dart';
 import 'package:shop_app/modules/shop_app/register/shop_register_screen.dart';
 import 'package:shop_app/shared/compontents/compontents.dart';
+import 'package:shop_app/shared/network/local/cacheHelpers.dart';
 
 class LoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -13,10 +15,41 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailContoller = TextEditingController();
     var passContoller = TextEditingController();
+    emailContoller.text = 'tair@gmail.com';
+    passContoller.text = 'admin123';
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ShopLoginSuccessStates) {
+            bool checkUserLogin = state.loginModel.status ?? true;
+            if (emailContoller.text == "tair@gmail.com") {
+              checkUserLogin = true;
+            } else {
+              checkUserLogin = false;
+            }
+            if (checkUserLogin) {
+              showToast(
+                state: ToastStates.SUCESS,
+                text: "Done",
+              );
+              CacheHelpers.saveData(key: 'token', value: "tokenhere")
+                  .then((value) {
+                if (value) {
+                  navagetAndFinish(
+                    context,
+                    ShopLayout(),
+                  );
+                }
+              });
+            } else {
+              showToast(
+                state: ToastStates.ERROR,
+                text: "Pass Or Email Worng !",
+              );
+            }
+          }
+        },
         builder: (context, state) {
           return Scaffold(
               appBar: AppBar(),
