@@ -5,6 +5,7 @@ import 'package:shop_app/layout/shop_app/cubit/states.dart';
 import 'package:shop_app/layout/shop_app/shop_layout.dart';
 import 'package:shop_app/modules/shop_app/login/login_screen.dart';
 import 'package:shop_app/modules/shop_app/on_boarding/on_bording_screen.dart';
+import 'package:shop_app/shared/compontents/constants.dart';
 import 'package:shop_app/shared/network/remote/dioHelper.dart';
 import 'package:shop_app/shared/styles/themes.dart';
 import 'package:shop_app/shared/network/local/cacheHelpers.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
   bool isDark = CacheHelpers.getData(key: 'isDark') ?? false;
   Widget widget;
   bool onBording = CacheHelpers.getData(key: 'onBording') ?? false;
-  String token = CacheHelpers.getData(key: 'token') ?? "";
+  token = CacheHelpers.getData(key: 'token') ?? "";
 
   if (onBording != null) {
     if (token != "") {
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => ShopCubit()),
+        BlocProvider(
+            create: (BuildContext context) => ShopCubit()..getHomeData()),
       ],
       child: BlocConsumer<ShopCubit, ShopStates>(
         listener: (context, state) {},

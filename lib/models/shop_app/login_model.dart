@@ -29,7 +29,7 @@ class UserData {
     this.token,
   });
   UserData.fromJson(Map<String, dynamic> json) {
-    id = json['id'] != null ? int.parse(json['id']) : 0;
+    id = json['id'] != null ? json['id'] : 0;
     name = json['name'];
     email = json['email'];
     phone = json['phone'];

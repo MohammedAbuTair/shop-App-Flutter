@@ -15,25 +15,26 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailContoller = TextEditingController();
     var passContoller = TextEditingController();
-    emailContoller.text = 'tair@gmail.com';
-    passContoller.text = 'admin123';
+    emailContoller.text = 'm7@gmail.com';
+    passContoller.text = '123456';
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
         listener: (context, state) {
           if (state is ShopLoginSuccessStates) {
-            bool checkUserLogin = state.loginModel.status ?? true;
-            if (emailContoller.text == "tair@gmail.com") {
-              checkUserLogin = true;
-            } else {
-              checkUserLogin = false;
-            }
+            bool checkUserLogin = state.loginModel.status ?? false;
+            // if (emailContoller.text == "tair@gmail.com") {
+            //   checkUserLogin = true;
+            // } else {
+            // checkUserLogin = false;
+            // }
             if (checkUserLogin) {
               showToast(
                 state: ToastStates.SUCESS,
                 text: "Done",
               );
-              CacheHelpers.saveData(key: 'token', value: "tokenhere")
+              CacheHelpers.saveData(
+                      key: 'token', value: state.loginModel.data?.token)
                   .then((value) {
                 if (value) {
                   navagetAndFinish(

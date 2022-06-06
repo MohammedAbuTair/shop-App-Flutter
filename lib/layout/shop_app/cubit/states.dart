@@ -4,8 +4,8 @@ class ShopInitialStates extends ShopStates {}
 
 class ShopChangeBottmStates extends ShopStates {}
 
-// class ShopLoadingStates extends ShopStates {}
+class ShopHomeLoadingStates extends ShopStates {}
 
-// class ShopSuccessStates extends ShopStates {}
+class ShopHomeSuccessStates extends ShopStates {}
 
-// class ShopErrorStates extends ShopStates {}
+class ShopHomeErrorStates extends ShopStates {}
